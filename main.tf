@@ -1,11 +1,10 @@
 resource "aws_vpc" "main" {
   cidr_block = var.vpc_cidr_block
 
-  tags = {
-    Name = merge(
-      var.tags
-      "${var.env}-vpc")
-  }
+  tags = merge(
+    var.tags,
+    { Name = "${var.env}-vpc" }
+  )
 }
 
 resource "aws_subnet" "main" {
@@ -14,9 +13,8 @@ resource "aws_subnet" "main" {
   cidr_block = each.value["cidr_block"]
   availability_zone = each.value["availability_zone"]
 
-  tags = {
-    Name = merge(
-      var.tags
-      "${var.env}-${each.value[name]}")
-  }
+  tags = merge(
+    var.tags,
+    { Name = "${var.env}-${each.value["name"]}" }
+  )
 }
