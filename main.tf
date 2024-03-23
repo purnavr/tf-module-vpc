@@ -5,20 +5,15 @@ resource "aws_vpc" "main" {
 }
 
 resource "aws_subnet" "public_subnets" {
-
+  count = length(var.public_subnets)
   vpc_id     = aws_vpc.main.id
-  cidr_block = var.cidr_block
+  cidr_block = var.public_subnets[count.index]
 
   tags = {
     Name = var.name
   }
 }
 
-module "public_subnets" {
-  source = "git::https://github.com/purnavr/tf-module-vpc.git"
-  for_each = var.public_subnets
-  cidr_block = each.value["cidr_block"]
-  name = each.value["name"]
-}
+
 
 
