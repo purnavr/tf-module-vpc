@@ -28,7 +28,7 @@ resource "aws_route_table" "public_route_tables" {
   for_each = var.public_subnets
   tags = merge(
     var.tags,
-    { Name = "${var.env}-vpc" }
+    { Name = "${var.env}-${each.value["name"]}" }
   )
 }
 
@@ -53,6 +53,6 @@ resource "aws_route_table" "private_route_tables" {
   for_each = var.private_subnets
   tags = merge(
     var.tags,
-    { Name = "${var.env}-vpc" }
+    { Name = "${var.env}-${each.value["name"]}" }
   )
 }
