@@ -7,10 +7,10 @@ resource "aws_vpc" "main" {
 resource "aws_subnet" "public_subnets" {
   for_each = var.public_subnets
   vpc_id     = aws_vpc.main.id
-  cidr_block = each.value["cidr_block"]
+  cidr_block = var.cidr_block
 
   tags = {
-    Name = each.value["name"]
+    Name = var.name
   }
 }
 
