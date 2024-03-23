@@ -15,7 +15,6 @@ resource "aws_subnet" "public_subnets" {
 }
 
 module "public_subnets" {
-  source = "./aws_subnet"
   for_each = var.public_subnets
   cidr_block = each.value["cidr_block"]
   name = each.value["name"]
