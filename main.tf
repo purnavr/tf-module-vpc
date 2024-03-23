@@ -10,7 +10,7 @@ resource "aws_subnet" "public_subnets" {
   cidr_block = var.public_subnets[count.index]
 
   tags = {
-    Name = var.name
+    Name = public
   }
 }
 
