@@ -5,9 +5,11 @@ resource "aws_vpc" "main" {
 }
 
 resource "aws_subnet" "public_subnets" {
-  count = length(var.public_subnets)
+  for_each = var.public_subnets
   vpc_id     = aws_vpc.main.id
-  cidr_block = var.public_subnets[count.index].[cidr_block]
+  cidr_block = each.value["cidr_block"]
+
+  tags = merge(var.tags, { Name = "${var.env}-${each.value["name"]}" })
 
 }
 
