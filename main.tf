@@ -4,6 +4,7 @@ resource "aws_vpc" "main" {
   tags = merge(var.tags, { Name = "${var.env}-vpc" })
 }
 
+## public_subnets
 resource "aws_subnet" "public_subnets" {
   for_each = var.public_subnets
   vpc_id     = aws_vpc.main.id
