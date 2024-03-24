@@ -85,9 +85,9 @@ resource "aws_subnet" "private_subnets" {
   )
 }
 
-locals {
-  az = split("-", "web-az1")[1]
-}
+#locals {
+#  az = split("-", "web-az1")[1]
+#}
 
 ## private_route table
 resource "aws_route_table" "private_route_tables" {
