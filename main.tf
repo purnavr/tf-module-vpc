@@ -32,7 +32,6 @@ resource "aws_internet_gateway" "igw" {
 }
 
 # Nat Gateway
-
 resource "aws_eip" "nat" {
   for_each = var.public_subnets
   domain   = "vpc"
@@ -89,6 +88,10 @@ resource "aws_subnet" "private_subnets" {
 ## private_route table
 resource "aws_route_table" "private_route_tables" {
   vpc_id = aws_vpc.main.id
+#  route {
+#    cidr_block = "0.0.0.0/0"
+#    nat_gateway_id = aws_nat_gateway.nat-gatways[each.value["availability_zone"]].id
+#  }
 
   for_each = var.private_subnets
   tags = merge(
